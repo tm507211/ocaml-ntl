@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: ee31f41e9b97dfa1f852f10bd91078cd)
+version = "0.1"
+description = "Number theory library"
+requires = "gmp"
+archive(byte) = "ntl.cma"
+archive(byte, plugin) = "ntl.cma"
+archive(native) = "ntl.cmxa"
+archive(native, plugin) = "ntl.cmxs"
+exists_if = "ntl.cma"
+# OASIS_STOP
+
