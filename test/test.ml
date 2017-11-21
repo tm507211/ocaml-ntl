@@ -35,6 +35,12 @@ let zz_roundtrip () =
   assert_equal_mpz big (ZZ.mpz_of (ZZ.of_mpz big));
   assert_equal_mpz neg_big (ZZ.mpz_of (ZZ.of_mpz neg_big))
 
+let zz_arith () =
+  assert_equal_zz (zz 4) (ZZ.add (zz 1) (zz 3));
+  assert_equal_zz (zz 500) (ZZ.mul (zz 5) (zz 100));
+  assert_equal_zz (zz 2147483647) (ZZ.negate (zz (-2147483647)));
+  assert_equal_zz (zz (-2)) (ZZ.sub (zz 1) (zz 3))
+
 let zzx_roundtrip () =
   let p = ZZX.zero () in
   assert_equal_zzx p (ZZX.of_list []);
@@ -55,6 +61,15 @@ let zzx_degree () =
   ZZX.set_coeff p 4 (zz 1);
   assert_equal 4 (ZZX.degree p)
 
+let zzx_arith () =
+  let p = ZZX.of_list [(1, zz 1); (0, zz (-1))] in
+  let q = ZZX.of_list [(3, zz 3); (1, zz 1)] in
+  assert_equal_zzx
+    (ZZX.of_list [(3, zz 3); (1, zz 2); (0, zz (-1))])
+    (ZZX.add p q);
+  assert_equal_zzx
+    (ZZX.of_list [(4, zz 3); (3, zz (-3)); (2, zz 1); (1, zz (-1))])
+    (ZZX.mul p q)
 
 let rec mul_factors = function
   | [] -> ZZX.of_list [(0, ZZ.one)]
@@ -105,8 +120,10 @@ let charpoly () =
 
 let suite = "Main" >::: [
     "zz_roundtrip" >:: zz_roundtrip;
+    "zz_arith" >:: zz_arith;
     "zzx_roundtrip" >:: zzx_roundtrip;
     "zzx_degree" >:: zzx_degree;
+    "zzx_arith" >:: zzx_arith;
     "zzx_factor" >:: zzx_factor;
     "charpoly" >:: charpoly;
   ]
@@ -115,4 +132,3 @@ let _ =
   Printexc.record_backtrace true;
   Printf.printf "Running test suite";
   ignore (run_test_tt_main suite)
-
