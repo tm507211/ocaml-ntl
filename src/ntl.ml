@@ -27,7 +27,7 @@ module ZZ = struct
     let mpz = Mpz.init () in
     for i = len -1 downto 0 do
       Mpz.mul mpz mpz maxbyte;
-      Mpz.add mpz mpz (Mpz.of_int (Char.code (String.get bytes i)))
+      Mpz.add mpz mpz (Mpz.of_int (Char.code (Bytes.get bytes i)))
     done;
     if neg then Mpz.neg mpz mpz;
     Mpzf._mpzf mpz
