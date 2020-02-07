@@ -1,0 +1,9 @@
+(library
+  (public_name ntl)
+  (libraries gmp)
+  (foreign_stubs
+    (language c)
+    (names ntl_stubs)
+    (flags -x c++ -std=c++11 -fPIC))
+  (c_library_flags (-lntl -lstdc++ -lgmp)))
+

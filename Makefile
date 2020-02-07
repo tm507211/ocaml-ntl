@@ -1,30 +1,21 @@
-SETUP = ocaml setup.ml
+.PHONY: test build clean uninstall install doc
 
 all: build
 
-build: setup.ml setup.data
-	$(SETUP) -build
-
-setup.ml: _oasis
-	oasis setup
-
-setup.data: setup.ml
-	$(SETUP) -configure --enable-tests
-
-install:
-	$(SETUP) -install
+build:
+	dune build
 
 clean:
-	$(SETUP) -clean
+	dune clean
 
 test:
-	$(SETUP) -test
+	dune runtest
 
 uninstall:
-	$(SETUP) -uninstall
+	dune uninstall
 
-reinstall:
-	$(SETUP) -reinstall
+install:
+	dune install
 
-doc: setup.ml setup.data
-	$(SETUP) -doc
+doc:
+	dune build @doc
