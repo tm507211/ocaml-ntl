@@ -46,12 +46,12 @@ struct custom_operations zz = {
 };
 
 void _make_ZZX(value* vptr, ZZX* x) {
-    *vptr = alloc_custom(&zzx, sizeof(ZZX*), 0, 1);
+    *vptr = caml_alloc_custom(&zzx, sizeof(ZZX*), 0, 1);
     ZZX_val(*vptr) = x;
 }
 
 void _make_ZZ(value* vptr, ZZ* x) {
-    *vptr = alloc_custom(&zz, sizeof(ZZ*), 0, 1);
+    *vptr = caml_alloc_custom(&zz, sizeof(ZZ*), 0, 1);
     ZZ_val(*vptr) = x;
 }
 
